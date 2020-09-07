@@ -1,17 +1,21 @@
 const video = document.getElementById("video");
-
-function startVideo() {
-  navigator.getUserMedia(
-    { video: {} },
-    (stream) => (video.srcObject = stream),
-    (err) => console.error(err)
-  );
-}
-
-startVideo();
-
+const videoAlt = document.getElementById("video-alt");
 const closeButton = document.getElementById("close-button");
 const modal = document.getElementById("modal");
+
+function startVideo() {
+  navigator.mediaDevices.getUserMedia({ video: true })
+    .then((stream) => {
+      video.srcObject = stream;
+      videoAlt.style.display = 'none';
+      video.style.display = 'block';
+      clearInterval(getVideoInterval);
+    })
+    .catch((err) => {
+      videoAlt.style.display = 'inline';
+      video.style.display = 'none';
+    });
+}
 
 function getRandomTranslate() {
   const rangeX = window.innerWidth / 2 - 190;
@@ -23,6 +27,16 @@ function getRandomTranslate() {
   };
 }
 
+/**
+ * start finding webcam until one is attached
+ */
+const getVideoInterval = setInterval(() => {
+  startVideo();
+}, 1000);
+
+/**
+ * move the pop-up modal to a random place when mouse is over the close button
+ */
 closeButton.addEventListener("mouseover", function (event) {
   const { x, y } = getRandomTranslate();
 

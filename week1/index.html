@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Weeek1</title>
+    <title>Close me!</title>
     <script defer src="script.js"></script>
     <style>
       body {
@@ -27,16 +27,25 @@
       #close-button {
         margin-bottom: 10px;
       }
-      #video {
+      #video-placeholder {
         height: 270px;
         width: 360px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+      #video-alt {
+        display: none;
       }
     </style>
   </head>
   <body>
     <div id="modal">
       <button id="close-button">X</button>
-      <video id="video" autoplay muted></video>
+      <div id="video-placeholder">
+        <video id="video" height="270" width="360" autoplay muted></video>
+        <p id="video-alt">Please connect your webcam for better experience.</p>
+      </div>
     </div>
   </body>
 </html>
