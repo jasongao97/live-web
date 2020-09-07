@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Weeek1</title>
+    <script defer src="script.js"></script>
+    <style>
+      body {
+        margin: 0;
+        padding: 0;
+        height: 100vh;
+        width: 100vw;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+      #modal {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-end;
+        padding: 10px;
+        border: 1px solid #888;
+        border-radius: 4px;
+        transition: transform .2s;
+      }
+      #close-button {
+        margin-bottom: 10px;
+      }
+      #video {
+        height: 270px;
+        width: 360px;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="modal">
+      <button id="close-button">X</button>
+      <video id="video" autoplay muted></video>
+    </div>
+  </body>
+</html>
