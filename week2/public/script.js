@@ -12,7 +12,7 @@ socket.on("connect", function () {
 // Receive from any event
 socket.on("chatmessage", function (data) {
 
-  bubbles.push(new Bubble(data))
+  bubbles.push(new Bubble(data, false))
 });
 
 const sendmessage = function (message) {
@@ -22,7 +22,7 @@ const sendmessage = function (message) {
 submitButton.addEventListener("click", function (event) {
   const { value } = message;
 
-  bubbles.push(new Bubble(value))
+  bubbles.push(new Bubble(value, true))
   sendmessage(value)
 });
 
@@ -46,19 +46,27 @@ function draw() {
 }
 
 class Bubble {
-  constructor(name) {
-    this.x = random(width);
-    this.y = random(height);
+  constructor(name, self) {
+    this.diameter = textWidth(name) + 10;
+
+    // self-created bubbles start from the center
+    if (self) {
+      this.x = width / 2;
+      this.y = height / 2;
+    } else {
+      this.x = random(this.diameter, width - this.diameter);
+      this.y = random(this.diameter, height - this.diameter);
+    }
+    
     this.speedx = random(-2, 2);
     this.speedy = random(-2, 2);
-    this.diameter = textWidth(name) + 10;
     this.hue = random(0, 100);
     this.name = name
   }
 
   move() {
-    if (this.x >= width || this.x <= 0) this.speedx = -this.speedx
-    if (this.y >= height || this.y <= 0) this.speedy = -this.speedy
+    if (this.x >= width - this.diameter / 2 || this.x <= this.diameter / 2) this.speedx = -this.speedx
+    if (this.y >= height - this.diameter / 2 || this.y <= this.diameter / 2) this.speedy = -this.speedy
     this.x += this.speedx;
     this.y += this.speedy;
   }
