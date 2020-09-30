@@ -14,7 +14,7 @@ app.get("/", function (req, res) {
 var http = require("http");
 // We pass in the Express object
 var httpServer = http.createServer(app);
-// Listen on port 80
+// Listen on port 8080
 httpServer.listen(8080);
 
 // WebSocket Portion
@@ -39,6 +39,7 @@ io.sockets.on(
         id: socket.id,
         angle,
         character,
+        msg: ""
       };
       people.push(person);
       console.log(person.character + " joined the chat.");
@@ -54,6 +55,15 @@ io.sockets.on(
       }
 
       socket.broadcast.emit("move", { id: socket.id, angle });
+    });
+    
+    // character chat
+    socket.on("chat", function(msg){
+        const index = people.findIndex((e) => e.id === socket.id);
+        if (index > -1) {
+            people[index].msg = msg;
+        }
+        socket.broadcast.emit("chat", { id: socket.id, msg });
     });
 
     // client disconnect
