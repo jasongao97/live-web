@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>DVD</title>
+    <script defer src="script.js"></script>
+
+    <!-- import socket.io -->
+    <script type="text/javascript" src="/socket.io/socket.io.js"></script>
+
+    <style>
+      body {
+        margin: 0;
+        padding: 0;
+        height: 100vh;
+        width: 100vw;
+        overflow: hidden;
+        background-color: black;
+      }
+
+      #myvideo,
+      #mycanvas {
+        display: none;
+      }
+
+      .people {
+        position: absolute;
+      }
+    </style>
+  </head>
+  <body>
+    <video id="myvideo" height="150" width="200"></video>
+    <canvas id="mycanvas" height="150" width="200"></canvas>
+  </body>
+</html>
