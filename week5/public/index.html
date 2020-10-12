@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>DVD plus</title>
+    <script src="script.js"></script>
+
+    <!-- import simplepear -->
+    <script src="simplepeer.min.js"></script>
+    <!-- import socket.io -->
+    <script src="/socket.io/socket.io.js"></script>
+
+    <style>
+      body {
+        margin: 0;
+        padding: 0;
+        height: 100vh;
+        width: 100vw;
+        overflow: hidden;
+        background-color: black;
+      }
+
+      video {
+        height: 150px;
+        width: 200px;
+        position: absolute;
+      }
+    </style>
+  </head>
+  <body>
+    <video id="myvideo" muted></video>
+  </body>
+</html>
