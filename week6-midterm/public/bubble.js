@@ -26,12 +26,12 @@ class Bubble {
     this.div.appendChild(canvas);
     
     const image = new Image();
-    image.src = 'https://cdn.glitch.com/61822e8c-6341-4a03-81be-ffc327f2f144%2F02.png?v=1603028815325';
+    image.src = 'images/bubble.png';
     this.div.appendChild(image);
 
     // fisheye effect
     this.fisheye = new Fisheye(canvas);
-    this.fisheye.setDistortion(-5);
+    this.distortion = -5;
 
     // animation
     this.animating = false;
@@ -60,6 +60,9 @@ class Bubble {
     }
     this.div.style.left = this.left + "px";
     this.div.style.top = this.top + "px";
+    
+    // fisheye effect
+    this.fisheye.setDistortion(this.distortion);
     this.fisheye.draw(this.video);
 
     // moving to the next location smoothly
@@ -70,6 +73,17 @@ class Bubble {
       if (Math.abs(this.top - this.nextTop) < 1 && Math.abs(this.left - this.nextLeft) < 1) {
         this.animating = false;
       }
+    }
+  }
+  
+  detectCollision(target) {
+    const distance = Math.sqrt(Math.pow(this.top - target.top, 2) + Math.pow(this.left - target.left, 2));
+    if (distance < 200) {
+      target.distortion = (200 - distance) / 10 - 5;
+      this.distortion = (200 - distance) / 10 - 5;
+      // this.speedX *= -1;
+      // this.speedY *= -1;
+      // this.collided = true;
     }
   }
 

@@ -1,8 +1,9 @@
-/* global Bubble, faceapi */
+/* global Bubble, Particle, SimplePeer, faceapi, io */
 
 let simplepeers = [];
 let mybubble;
 let bubbles = [];
+let particles = [];
 var socket;
 var mystream;
 
@@ -66,6 +67,7 @@ function setupSocket() {
     mybubble.div.style.zIndex = 99;
     drawBubble();
     detectFace();
+    drawParticle();
   });
 
   socket.on("disconnect", function (data) {
@@ -167,13 +169,40 @@ function setupSocket() {
 function drawBubble() {
   // const people = document.getElementsByTagName("video");
 
-  mybubble.draw();
-
   for (let i = 0; i < bubbles.length; i++) {
+    mybubble.detectCollision(bubbles[i]);
+    for (let j = i + 1; j < bubbles.length; j++) {
+      bubbles[i].detectCollision(bubbles[j]);
+    }
+
     bubbles[i].draw();
+  }
+  
+  mybubble.draw();
+  
+  for (let i = 0; i < bubbles.length; i++) {
+    mybubble.distortion = -5;
+    bubbles[i].distortion = -5;
+  }
+  
+  for (let i = 0; i < particles.length; i++) {
+    particles[i].draw();
   }
 
   requestAnimationFrame(drawBubble);
+}
+
+function drawParticle() {
+  if (mybubble.rotating) {
+    particles.push(new Particle(mybubble.left + 100, mybubble.top + 100));
+  }
+
+  for (let i = 0; i < bubbles.length; i++) {
+    if (bubbles[i].rotating) {
+      particles.push(new Particle(bubbles[i].left + 100, bubbles[i].top + 100));
+    }
+  }
+  setTimeout(drawParticle, 300)
 }
 
 function detectFace() {
@@ -206,6 +235,7 @@ function detectFace() {
 
         // mouth open
         if (ulDistance / nlDistance > 0.3) {
+          // particles.push(new Particle(mybubble.left + 100, mybubble.top + 100));
           mybubble.rotating = true;
         } else {
           mybubble.rotating = false;
