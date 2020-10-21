@@ -66,7 +66,6 @@ function setupSocket() {
     mybubble.div.style.zIndex = 99;
     drawBubble();
     detectFace();
-    updateState();
   });
 
   socket.on("disconnect", function (data) {
@@ -211,6 +210,9 @@ function detectFace() {
         } else {
           mybubble.rotating = false;
         }
+
+        // update state to anyone else
+        updateState();
       } else {
         mybubble.speedX = 0;
         mybubble.speedY = 0;
@@ -226,7 +228,6 @@ function updateState() {
     rotating: mybubble.rotating,
   };
   socket.emit("updateState", data);
-  setTimeout(updateState, 200);
 }
 
 // A wrapper for simplepeer as we need a bit more than it provides
