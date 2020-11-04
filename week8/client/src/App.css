@@ -1,0 +1,42 @@
+.App {
+  margin: 32px;
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  justify-content: center;
+}
+
+.recorder {
+  position: sticky;
+  top: 32px;
+  background-color: rgb(35, 38, 43);
+  padding: 28px;
+  border-radius: 8px;
+}
+
+.sequencer {
+  margin-left: 32px;
+  background-color: rgb(35, 38, 43);
+  padding: 28px;
+  border-radius: 8px;
+  color: #aaa;
+}
+
+.line:first-child {
+  margin-top: 0;
+}
+
+.line {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  margin-top: 16px;
+}
+
+.line > video {
+  margin-right: 10px;
+  width: 40px;
+  height: 40px;
+  object-fit: cover;
+  border-radius: 4px;
+}
